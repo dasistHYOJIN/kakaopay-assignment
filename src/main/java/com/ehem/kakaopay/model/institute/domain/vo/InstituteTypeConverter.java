@@ -1,4 +1,4 @@
-package com.ehem.kakaopay.institute.domain.vo;
+package com.ehem.kakaopay.model.institute.domain.vo;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;

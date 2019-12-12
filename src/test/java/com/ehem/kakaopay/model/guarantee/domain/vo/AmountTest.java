@@ -1,4 +1,4 @@
-package com.ehem.kakaopay.guarantee.domain.vo;
+package com.ehem.kakaopay.model.guarantee.domain.vo;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

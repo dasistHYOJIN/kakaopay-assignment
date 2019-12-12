@@ -1,6 +1,6 @@
-package com.ehem.kakaopay.institute.domain;
+package com.ehem.kakaopay.model.institute.domain;
 
-import com.ehem.kakaopay.institute.domain.vo.InstituteType;
+import com.ehem.kakaopay.model.institute.domain.vo.InstituteType;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

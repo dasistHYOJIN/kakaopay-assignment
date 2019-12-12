@@ -1,9 +1,9 @@
-package com.ehem.kakaopay.guarantee.domain;
+package com.ehem.kakaopay.model.guarantee.domain;
 
-import com.ehem.kakaopay.guarantee.domain.vo.Amount;
-import com.ehem.kakaopay.guarantee.domain.vo.Month;
-import com.ehem.kakaopay.guarantee.domain.vo.Year;
-import com.ehem.kakaopay.institute.domain.Institute;
+import com.ehem.kakaopay.model.guarantee.domain.vo.Amount;
+import com.ehem.kakaopay.model.guarantee.domain.vo.Month;
+import com.ehem.kakaopay.model.guarantee.domain.vo.Year;
+import com.ehem.kakaopay.model.institute.domain.Institute;
 import lombok.*;
 
 import javax.persistence.*;
