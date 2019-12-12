@@ -6,10 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -18,7 +15,7 @@ import javax.persistence.Id;
 public class Institute {
 
     @Id
-    @Enumerated(EnumType.STRING)
+    @Column(name = "instituteName", nullable = false)
     private InstituteType instituteType;
 
     public Institute(final InstituteType instituteType) {
@@ -30,8 +27,7 @@ public class Institute {
     }
 
     public String getName() {
-        return instituteType.getNames()[0]; // TODO: 2019-12-12 여기 어떻게 할 지 고민 좀
+        return instituteType.getName();
     }
-
 
 }
