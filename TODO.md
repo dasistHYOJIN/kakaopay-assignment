@@ -5,7 +5,8 @@
         * ~~신용보증을 나타내는 Guarantee 엔티티 정의하기~~
         * ~~보증기관을 나타내는 Institute 엔티티 정의하기~~
         * ~~엔티티 간 연관관계 매핑~~
-        * ~~Institute 엔티티 Enum 필드 Convert하기~~
+        * ~~Institute 엔티티 Enum 필드 Convert하기~~ -> 삭제
+        * ~~Month 엔티티 Enum 필드 Convert하기~~
     2. 데이터 다루기
         * 파일 내용을 DTO로 받아오기
         * DTO 내용을 엔티티에 맞게 파싱하는 Parser 유틸 클래스 생성하기
