@@ -15,6 +15,7 @@ import javax.persistence.*;
 public class Institute {
 
     @Id
+    @Enumerated(EnumType.STRING)
     @Column(name = "instituteName", nullable = false)
     private InstituteType instituteType;
 

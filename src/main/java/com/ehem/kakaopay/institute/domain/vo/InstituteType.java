@@ -2,13 +2,9 @@ package com.ehem.kakaopay.institute.domain.vo;
 
 import lombok.Getter;
 
-import javax.persistence.Convert;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.stream.Stream;
 
 @Getter
-@Convert(converter = InstituteTypeConverter.class, attributeName = "name")
 public enum InstituteType {
     JOOTAEK("bnk01", "주택도시기금1"),
     KOOKMIN("bnk02", "국민은행"),

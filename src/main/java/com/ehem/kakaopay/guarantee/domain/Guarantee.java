@@ -2,6 +2,7 @@ package com.ehem.kakaopay.guarantee.domain;
 
 import com.ehem.kakaopay.guarantee.domain.vo.Amount;
 import com.ehem.kakaopay.guarantee.domain.vo.Month;
+import com.ehem.kakaopay.guarantee.domain.vo.MonthConverter;
 import com.ehem.kakaopay.guarantee.domain.vo.Year;
 import com.ehem.kakaopay.institute.domain.Institute;
 import lombok.*;
@@ -23,9 +24,8 @@ public class Guarantee {
             column = @Column(name = "year", nullable = false))
     private Year year;
 
-    @AttributeOverride(
-            name = "value",
-            column = @Column(name = "month", nullable = false))
+    @Convert(converter = MonthConverter.class)
+    @Column(nullable = false)
     private Month month;
 
     @AttributeOverride(
