@@ -18,8 +18,9 @@
 
 <div class="container mt-5">
     <div class="jumbotron container-sm">
-        <h3 class="display-4">카카오페이 사전 과제</h3>
         <p class="text-right">지원자 박효진</p>
+        <h3 class="display-4">카카오페이 사전 과제</h3>
+        <h4>#사전과제 3. 주택 금융 서비스 API 개발</h4>
         <hr class="my-4">
 
         <div class="container">
@@ -30,7 +31,7 @@
             <form action="/api/data" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="file" name="file" class="form-control-file" id="dataFile">
+                        <input type="file" name="file" class="form-control-file" id="dataFile" accept="text/csv" required>
                     </div>
                     <div class="col-md-4">
                         <button type="submit" class="btn btn-warning btn-lg btn-block">데이터베이스에 저장하기</button>
