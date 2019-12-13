@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
+import static com.ehem.kakaopay.util.NumericUtils.removeCommaSeparatorAndQuotesFrom;
+
 public class Record {
     private final String contents;
 
@@ -11,8 +13,9 @@ public class Record {
         this.contents = contents;
     }
 
-    public List<String> split() {
-        return Arrays.asList(contents.split(",", 0));
+    public List<String> getSplittedContents() {
+        String result = removeCommaSeparatorAndQuotesFrom(contents);
+        return Arrays.asList(result.split(","));
     }
 
     @Override

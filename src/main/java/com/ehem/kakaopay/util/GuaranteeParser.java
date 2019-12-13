@@ -17,6 +17,8 @@ public class GuaranteeParser {
     private static final String INSTITUTE_REGEX = "[\\(0-9]";
     private static final int HEADER_INDEX = 0;
     private static final int INSTITUTE_NAME_INDEX = 0;
+    private static final int YEAR_INDEX = 0;
+    private static final int MONTH_INDEX = 1;
     private static final int INSTITUTE_INDEX = 2;
 
     public static List<Guarantee> parseToGuarantees(final List<Record> records) {
@@ -29,12 +31,12 @@ public class GuaranteeParser {
     }
 
     private static List<Guarantee> parseRecordToGuarantees(final List<String> header, final Record record) {
-        List<String> columns = record.split();
+        List<String> columns = record.getSplittedContents();
 
         return IntStream.range(INSTITUTE_INDEX, columns.size())
                 .mapToObj(index -> Guarantee.builder()
-                        .year(Year.of(Integer.parseInt(columns.get(0))))
-                        .month(Month.of(Integer.parseInt(columns.get(1))))
+                        .year(Year.of(Integer.parseInt(columns.get(YEAR_INDEX))))
+                        .month(Month.of(Integer.parseInt(columns.get(MONTH_INDEX))))
                         .institute(new Institute(InstituteType.ofName(header.get(index))))
                         .amount(Amount.of(Integer.parseInt(columns.get(index))))
                         .build())
@@ -42,7 +44,7 @@ public class GuaranteeParser {
     }
 
     private static List<String> extractHeader(final List<Record> records) {
-        List<String> header = records.remove(HEADER_INDEX).split();
+        List<String> header = records.remove(HEADER_INDEX).getSplittedContents();
 
         return header.stream()
                 .map(GuaranteeParser::extractNameIfInstitute)
