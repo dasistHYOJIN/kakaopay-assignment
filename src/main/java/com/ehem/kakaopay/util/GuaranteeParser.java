@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class GuaranteeParser {
-    private static final String INSTITUTE_REGEX = "\\(";
+    private static final String INSTITUTE_REGEX = "[\\(0-9]";
     private static final int HEADER_INDEX = 0;
     private static final int INSTITUTE_NAME_INDEX = 0;
     private static final int INSTITUTE_INDEX = 2;

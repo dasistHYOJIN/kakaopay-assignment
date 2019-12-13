@@ -8,15 +8,15 @@ import java.util.stream.Stream;
 @Getter
 @Convert(converter = InstituteTypeConverter.class, attributeName = "name")
 public enum InstituteType {
-    JOOTAEK("bnk01", "주택도시기금1)"),
-    KOOKMIN("bnk02", "국민은행"),
-    WOORI("bnk03", "우리은행"),
-    SHINHAN("bnk04", "신한은행"),
-    CITY("bnk05", "한국시티은행"),
-    HANA("bnk06", "하나은행"),
-    NH("bnk07", "농협은행/수협은행"),
-    OEHWAN("bnk08", "외환은행"),
-    EXTRA("bnk99", "기타은행");
+    JOOTAEK("ins01", "주택도시기금"),
+    KOOKMIN("ins02", "국민은행"),
+    WOORI("ins03", "우리은행"),
+    SHINHAN("ins04", "신한은행"),
+    CITY("ins05", "한국시티은행"),
+    HANA("ins06", "하나은행"),
+    NH("ins07", "농협은행/수협은행"),
+    OEHWAN("ins08", "외환은행"),
+    EXTRA("ins99", "기타은행");
 
     private final String code;
     private final String name;
