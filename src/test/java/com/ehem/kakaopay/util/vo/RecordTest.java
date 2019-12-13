@@ -1,0 +1,18 @@
+package com.ehem.kakaopay.util.vo;
+
+import com.ehem.kakaopay.util.vo.Record;
+import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+class RecordTest {
+
+    @Test
+    void contents_구분자단위로_split_테스트() {
+        Record record = new Record("1,2,3,,,,,");
+
+        assertThat(record.split()).isEqualTo(Arrays.asList("1", "2", "3"));
+    }
+}
