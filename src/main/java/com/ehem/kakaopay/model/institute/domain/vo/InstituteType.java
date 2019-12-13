@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 @Getter
 @Convert(converter = InstituteTypeConverter.class, attributeName = "name")
 public enum InstituteType {
-    JOOTAEK("bnk01", "주택도시기금1"),
+    JOOTAEK("bnk01", "주택도시기금1)"),
     KOOKMIN("bnk02", "국민은행"),
     WOORI("bnk03", "우리은행"),
     SHINHAN("bnk04", "신한은행"),
