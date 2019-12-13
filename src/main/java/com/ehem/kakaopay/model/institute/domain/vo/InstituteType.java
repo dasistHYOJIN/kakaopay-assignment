@@ -6,7 +6,6 @@ import javax.persistence.Convert;
 import java.util.stream.Stream;
 
 @Getter
-@Convert(converter = InstituteTypeConverter.class, attributeName = "name")
 public enum InstituteType {
     JOOTAEK("ins01", "주택도시기금"),
     KOOKMIN("ins02", "국민은행"),

@@ -15,7 +15,8 @@ import javax.persistence.*;
 public class Institute {
 
     @Id
-    @Column(name = "instituteName", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "institute", nullable = false)
     private InstituteType instituteType;
 
     public Institute(final InstituteType instituteType) {
