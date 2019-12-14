@@ -25,6 +25,12 @@ public class InstituteService {
                 .collect(Collectors.toList());
     }
 
+    public List<InstituteSavedResponseDto> findAll() {
+        return instituteRepository.findAll().stream()
+                .map(this::toSavedResponseDto)
+                .collect(Collectors.toList());
+    }
+
     private InstituteSavedResponseDto toSavedResponseDto(final Institute institute) {
         return new InstituteSavedResponseDto(
                 institute.getName(),

@@ -2,7 +2,6 @@ package com.ehem.kakaopay.model.institute.domain.vo;
 
 import lombok.Getter;
 
-import javax.persistence.Convert;
 import java.util.stream.Stream;
 
 @Getter
