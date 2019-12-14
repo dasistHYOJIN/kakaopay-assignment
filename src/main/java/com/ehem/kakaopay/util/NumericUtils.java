@@ -9,6 +9,9 @@ public class NumericUtils {
     private static final Pattern COMMA_SEPARATOR_PATTERN = Pattern.compile(COMMA_SEPARATOR_REGEX);
     private static final String EMPTY_STRING = "";
 
+    private NumericUtils() {
+    }
+
     public static String removeCommaSeparatorAndQuotesFrom(final String value) {
         Matcher matcher = COMMA_SEPARATOR_PATTERN.matcher(value);
         String numbers = value;

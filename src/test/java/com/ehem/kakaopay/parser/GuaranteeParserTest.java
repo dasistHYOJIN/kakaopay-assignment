@@ -1,11 +1,12 @@
-package com.ehem.kakaopay.util;
+package com.ehem.kakaopay.parser;
 
 import com.ehem.kakaopay.model.guarantee.domain.Guarantee;
 import com.ehem.kakaopay.model.guarantee.domain.vo.Amount;
 import com.ehem.kakaopay.model.guarantee.domain.vo.Month;
 import com.ehem.kakaopay.model.guarantee.domain.vo.Year;
 import com.ehem.kakaopay.model.institute.domain.vo.InstituteType;
-import com.ehem.kakaopay.util.vo.Record;
+import com.ehem.kakaopay.parser.GuaranteeParser;
+import com.ehem.kakaopay.parser.vo.Record;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

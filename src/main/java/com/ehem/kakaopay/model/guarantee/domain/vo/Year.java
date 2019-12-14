@@ -1,5 +1,6 @@
 package com.ehem.kakaopay.model.guarantee.domain.vo;
 
+import com.ehem.kakaopay.model.guarantee.exception.InvalidFieldValueException;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -30,14 +31,12 @@ public class Year {
     }
 
     public static Year of(final int value) {
-        /*years.putIfAbsent(value, new Year(value));
-        return years.get(value);*/
         return years.getOrDefault(value, new Year(value));
     }
 
     private int validateYear(final int value) {
         if (value < MIN_VALUE) {
-            throw new IllegalArgumentException(String.format("년도는 %d 이상의 자연수여야 합니다.", MIN_VALUE));
+            throw new InvalidFieldValueException(String.format("연도는 %d 이상의 자연수여야 합니다.", MIN_VALUE));
         }
 
         return value;

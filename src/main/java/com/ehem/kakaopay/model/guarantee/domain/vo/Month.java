@@ -1,5 +1,6 @@
 package com.ehem.kakaopay.model.guarantee.domain.vo;
 
+import com.ehem.kakaopay.model.guarantee.exception.InvalidFieldValueException;
 import lombok.Getter;
 
 import java.util.stream.Stream;
@@ -20,6 +21,6 @@ public enum Month {
         return Stream.of(values())
                 .filter(month -> month.getNum() == num)
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException(String.format("%d월은 존재하지 않는 달입니다.", num)));
+                .orElseThrow(() -> new InvalidFieldValueException(String.format("%d월은 존재하지 않는 달입니다.", num)));
     }
 }

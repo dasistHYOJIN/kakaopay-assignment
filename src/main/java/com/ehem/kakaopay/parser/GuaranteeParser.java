@@ -1,4 +1,4 @@
-package com.ehem.kakaopay.util;
+package com.ehem.kakaopay.parser;
 
 import com.ehem.kakaopay.model.guarantee.domain.Guarantee;
 import com.ehem.kakaopay.model.guarantee.domain.vo.Amount;
@@ -6,7 +6,7 @@ import com.ehem.kakaopay.model.guarantee.domain.vo.Month;
 import com.ehem.kakaopay.model.guarantee.domain.vo.Year;
 import com.ehem.kakaopay.model.institute.domain.Institute;
 import com.ehem.kakaopay.model.institute.domain.vo.InstituteType;
-import com.ehem.kakaopay.util.vo.Record;
+import com.ehem.kakaopay.parser.vo.Record;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,6 +20,9 @@ public class GuaranteeParser {
     private static final int YEAR_INDEX = 0;
     private static final int MONTH_INDEX = 1;
     private static final int INSTITUTE_INDEX = 2;
+
+    private GuaranteeParser() {
+    }
 
     public static List<Guarantee> parseToGuarantees(final List<Record> records) {
         List<String> header = extractHeader(records);

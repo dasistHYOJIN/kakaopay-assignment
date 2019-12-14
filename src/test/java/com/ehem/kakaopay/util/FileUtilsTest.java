@@ -1,6 +1,6 @@
 package com.ehem.kakaopay.util;
 
-import com.ehem.kakaopay.util.vo.Record;
+import com.ehem.kakaopay.parser.vo.Record;
 import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;

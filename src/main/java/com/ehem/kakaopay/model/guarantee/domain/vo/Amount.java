@@ -1,5 +1,6 @@
 package com.ehem.kakaopay.model.guarantee.domain.vo;
 
+import com.ehem.kakaopay.model.guarantee.exception.InvalidFieldValueException;
 import lombok.AccessLevel;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -26,7 +27,7 @@ public class Amount {
 
     private int validateAmount(final int value) {
         if (value < MIN_VALUE) {
-            throw new IllegalArgumentException("신용보증 금액은 0 이상의 자연수여야 합니다.");
+            throw new InvalidFieldValueException("신용보증 금액은 0 이상의 자연수여야 합니다.");
         }
 
         return value;

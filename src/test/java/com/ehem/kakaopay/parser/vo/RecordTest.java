@@ -1,4 +1,4 @@
-package com.ehem.kakaopay.util.vo;
+package com.ehem.kakaopay.parser.vo;
 
 import org.junit.jupiter.api.Test;
 

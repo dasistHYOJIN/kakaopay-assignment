@@ -1,6 +1,6 @@
 package com.ehem.kakaopay.util;
 
-import com.ehem.kakaopay.util.vo.Record;
+import com.ehem.kakaopay.parser.vo.Record;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
@@ -11,6 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FileUtils {
+
+    private FileUtils() {
+    }
+
     public static List<Record> readFile(final MultipartFile file) throws IOException {
         InputStream inputStream = file.getInputStream();
         InputStreamReader reader = new InputStreamReader(inputStream);

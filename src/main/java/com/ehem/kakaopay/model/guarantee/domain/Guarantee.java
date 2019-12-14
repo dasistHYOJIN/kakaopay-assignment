@@ -32,7 +32,7 @@ public class Guarantee {
             column = @Column(name = "amount", nullable = false))
     private Amount amount;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne//(fetch = FetchType.LAZY)
     private Institute institute;
 
     @Builder
