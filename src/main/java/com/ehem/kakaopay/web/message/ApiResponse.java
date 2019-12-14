@@ -12,13 +12,14 @@ public class ApiResponse {
     private ApiResponse() {
     }
 
+    public ApiResponse(final HttpStatus httpStatus, final String msg, final Object data) {
+        this.httpStatus = httpStatus;
+        this.msg = msg;
+        this.data = data;
+    }
+
     public ApiResponse(final HttpStatus httpStatus, final String msg) {
         this.httpStatus = httpStatus;
         this.msg = msg;
-    }
-
-    public ApiResponse(final HttpStatus httpStatus, final Object data) {
-        this.httpStatus = httpStatus;
-        this.data = data;
     }
 }

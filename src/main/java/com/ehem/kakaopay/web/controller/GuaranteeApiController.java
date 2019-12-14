@@ -25,11 +25,11 @@ public class GuaranteeApiController {
     }
 
     @PostMapping("/new")
-    public ResponseEntity<ApiResponse> getDataFile(@RequestParam(name = "file") final MultipartFile file) {
+    public ResponseEntity<ApiResponse> saveDataFile(@RequestParam(name = "file") final MultipartFile file) {
         List<GuaranteeSavedResponseDto> savedGuarantees = guaranteeService.save(file);
 
         log.info("{}", savedGuarantees);
 
-        return ResponseEntity.ok(new ApiResponse(HttpStatus.OK, savedGuarantees));
+        return ResponseEntity.ok(new ApiResponse(HttpStatus.OK, "데이터베이스에 저장된 주택금융 공급현황", savedGuarantees));
     }
 }
