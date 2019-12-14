@@ -46,7 +46,7 @@ class InstituteServiceTest {
                 new Institute(InstituteType.KOOKMIN),
                 new Institute(InstituteType.WOORI),
                 new Institute(InstituteType.SHINHAN),
-                new Institute(InstituteType.CITY),
+                new Institute(InstituteType.CITI),
                 new Institute(InstituteType.EXTRA)));
 
         // when
@@ -60,7 +60,7 @@ class InstituteServiceTest {
                         new InstituteSavedResponseDto(InstituteType.KOOKMIN.getName(), InstituteType.KOOKMIN.getCode()),
                         new InstituteSavedResponseDto(InstituteType.WOORI.getName(), InstituteType.WOORI.getCode()),
                         new InstituteSavedResponseDto(InstituteType.SHINHAN.getName(), InstituteType.SHINHAN.getCode()),
-                        new InstituteSavedResponseDto(InstituteType.CITY.getName(), InstituteType.CITY.getCode()),
+                        new InstituteSavedResponseDto(InstituteType.CITI.getName(), InstituteType.CITI.getCode()),
                         new InstituteSavedResponseDto(InstituteType.EXTRA.getName(), InstituteType.EXTRA.getCode())
                 );
     }

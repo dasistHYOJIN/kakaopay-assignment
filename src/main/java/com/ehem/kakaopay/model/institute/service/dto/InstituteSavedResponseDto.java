@@ -3,7 +3,6 @@ package com.ehem.kakaopay.model.institute.service.dto;
 import lombok.*;
 
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode
 public class InstituteSavedResponseDto {
