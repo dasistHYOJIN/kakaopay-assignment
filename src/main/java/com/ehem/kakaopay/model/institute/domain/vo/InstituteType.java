@@ -10,9 +10,9 @@ public enum InstituteType {
     KOOKMIN("ins02", "국민은행"),
     WOORI("ins03", "우리은행"),
     SHINHAN("ins04", "신한은행"),
-    CITY("ins05", "한국시티은행"),
+    CITI("ins05", "한국시티은행"),
     HANA("ins06", "하나은행"),
-    NH("ins07", "농협은행/수협은행"),
+    NH_SH("ins07", "농협은행/수협은행"),
     OEHWAN("ins08", "외환은행"),
     EXTRA("ins99", "기타은행");
 
