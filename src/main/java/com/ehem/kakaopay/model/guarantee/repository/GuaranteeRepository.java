@@ -47,7 +47,7 @@ public interface GuaranteeRepository extends JpaRepository<Guarantee, Long> {
     /**
      * 연도별 금융기관 지원금액 평균을 출력
      **/
-    @Query(value = "SELECT new com.ehem.kakaopay.model.guarantee.service.dto.AverageAmountPerYearResult(avg(g.amount), g.year, g.institute) " +
+    @Query(value = "SELECT new com.ehem.kakaopay.model.guarantee.service.dto.AverageAmountPerYearResult(round(avg(g.amount)), g.year, g.institute) " +
             "FROM Guarantee g " +
             "GROUP BY g.institute, g.year")
     List<AverageAmountPerYearResult> findAverageAmountsPerYear();

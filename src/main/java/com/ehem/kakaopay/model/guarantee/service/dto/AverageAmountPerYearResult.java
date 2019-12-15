@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class AverageAmountPerYearResult {
-    private Double avg;
+    private Integer avg;
     private Year year;
     private Institute institute;
 
     public AverageAmountPerYearResult(final Double avg, final Year year, final Institute institute) {
-        this.avg = avg;
+        this.avg = avg.intValue();
         this.year = year;
         this.institute = institute;
     }
