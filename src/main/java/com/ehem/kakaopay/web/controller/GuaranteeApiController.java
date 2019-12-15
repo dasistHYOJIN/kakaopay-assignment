@@ -66,6 +66,6 @@ public class GuaranteeApiController {
 
         log.info("getMinMaxAverageAmounts() >> {}", results);
 
-        return ResponseEntity.ok(new ApiResponse(HttpStatus.OK, "주택 금융 공급 현황 데이터", results));
+        return ResponseEntity.ok(new ApiResponse(HttpStatus.OK, String.format("%s의 지원금액 평균 중에서 최소 및 최대 금액 데이터", instituteName), results));
     }
 }
