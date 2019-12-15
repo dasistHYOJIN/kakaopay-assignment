@@ -2,6 +2,7 @@ package com.ehem.kakaopay.model.guarantee.repository;
 
 import com.ehem.kakaopay.model.guarantee.domain.Guarantee;
 import com.ehem.kakaopay.model.guarantee.domain.vo.Year;
+import com.ehem.kakaopay.model.guarantee.service.dto.AverageAmountPerYearResult;
 import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountPerYearResult;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,14 +19,6 @@ public interface GuaranteeRepository extends JpaRepository<Guarantee, Long> {
             "FROM Guarantee g " +
             "GROUP BY g.institute, g.year")
     List<TotalAmountPerYearResult> findTotalAmountGroupByInstituteNameAndYear();
-
-    /**
-     * 년도별 각 금융기관의 지원금액 합계
-     **/
-    @Query(value = "SELECT new com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountPerYearResult(g.year, g.institute, sum(g.amount)) " +
-            "FROM Guarantee g " +
-            "GROUP BY g.institute, g.year")
-    List<TotalAmountPerYearResult> findTotalAmountGroupByIntituteNameAndYear();
 
     /**
      * 각 년도별 가장 많은 금액을 지원한 기관명
@@ -47,4 +40,12 @@ public interface GuaranteeRepository extends JpaRepository<Guarantee, Long> {
             "ON t.sum = g.max " +
             "WHERE t.year = ?", nativeQuery = true)
     List<Object[]> findInstituteNameByYearAndMaxTotalAmount(final int year);
+
+    /**
+     * 연도별 금융기관 지원금액 평균을 출력
+     **/
+    @Query(value = "SELECT new com.ehem.kakaopay.model.guarantee.service.dto.AverageAmountPerYearResult(avg(g.amount), g.year, g.institute) " +
+            "FROM Guarantee g " +
+            "GROUP BY g.institute, g.year")
+    List<AverageAmountPerYearResult> findAverageAmountsPerYear();
 }
