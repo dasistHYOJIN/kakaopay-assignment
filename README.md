@@ -27,6 +27,8 @@
     $ ./gradlew clean build
     $ java -jar build/libs/kakaopay-0.0.1-SNAPSHOT.jar
 
+Base Url: `http://localhost:8080/`
+
 ### Lombok 설정하기
 Lombok 라이브러리를 사용하였기 때문에 IntelliJ에서 프로그램을 실행시키기 위해서는 다음과 같은 환경설정이 필요합니다.
 ![Untitled](https://user-images.githubusercontent.com/25656510/70863387-0ef3df00-1f8b-11ea-94c7-42c1249de068.png)
