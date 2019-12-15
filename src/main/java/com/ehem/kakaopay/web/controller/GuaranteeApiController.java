@@ -2,14 +2,12 @@ package com.ehem.kakaopay.web.controller;
 
 import com.ehem.kakaopay.model.guarantee.service.GuaranteeService;
 import com.ehem.kakaopay.model.guarantee.service.dto.GuaranteeSavedResponseDto;
+import com.ehem.kakaopay.model.guarantee.service.dto.MaxTotalAmountInstitutePerYearResult;
 import com.ehem.kakaopay.web.message.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -28,8 +26,26 @@ public class GuaranteeApiController {
     public ResponseEntity<ApiResponse> saveDataFile(@RequestParam(name = "file") final MultipartFile file) {
         List<GuaranteeSavedResponseDto> savedGuarantees = guaranteeService.save(file);
 
-        log.info("{}", savedGuarantees);
+        log.info("saveDataFile() >> {}개의 데이터 저장", savedGuarantees.size());
 
         return ResponseEntity.ok(new ApiResponse(HttpStatus.OK, "데이터베이스에 저장된 주택금융 공급현황", savedGuarantees));
+    }
+
+    @GetMapping("/max")
+    public ResponseEntity<ApiResponse> getInstituteNamesByMaxTotalAmountPerYear() {
+        List<MaxTotalAmountInstitutePerYearResult> results = guaranteeService.findInstituteNamesByMaxTotalAmountPerYear();
+
+        log.info("getInstituteNamesByMaxTotalAmountPerYear() >> {}", results);
+
+        return ResponseEntity.ok(new ApiResponse(HttpStatus.OK, "각 연도별 가장 높은 금액을 지원한 금융기관 데이터", results));
+    }
+
+    @GetMapping("/max/{year}")
+    public ResponseEntity<ApiResponse> getInstituteNameByMaxTotalAmountPerYear(@PathVariable final int year) {
+        MaxTotalAmountInstitutePerYearResult result = guaranteeService.findInstituteNameByMaxTotalAmountPerYear(year);
+
+        log.info("getInstituteNameByMaxTotalAmountPerYear() >> {}", result);
+
+        return ResponseEntity.ok(new ApiResponse(HttpStatus.OK, String.format("%d년 가장 높은 금액을 지원한 금융기관 데이터", year), result));
     }
 }
