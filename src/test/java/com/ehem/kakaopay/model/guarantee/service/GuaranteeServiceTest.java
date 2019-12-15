@@ -3,9 +3,7 @@ package com.ehem.kakaopay.model.guarantee.service;
 import com.ehem.kakaopay.model.guarantee.domain.vo.Year;
 import com.ehem.kakaopay.model.guarantee.exception.NoSuchDataException;
 import com.ehem.kakaopay.model.guarantee.repository.GuaranteeRepository;
-import com.ehem.kakaopay.model.guarantee.service.dto.MaxTotalAmountInstitutePerYearResult;
-import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountAndInstitutePerYearResponseDto;
-import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountPerYearResult;
+import com.ehem.kakaopay.model.guarantee.service.dto.*;
 import com.ehem.kakaopay.model.institute.domain.Institute;
 import com.ehem.kakaopay.model.institute.domain.vo.InstituteType;
 import org.junit.jupiter.api.Test;
@@ -118,6 +116,77 @@ class GuaranteeServiceTest {
         assertThat(results.get(0))
                 .hasFieldOrPropertyWithValue("year", year1 + "년")
                 .hasFieldOrPropertyWithValue("totalAmount", sumAmount1);
+    }
+
+    @Test
+    void 존재하지_않는_금융기관의_연도별_평균_최대최소값을_요청하는_경우_예외처리_테스트() {
+        // given
+        InstituteType instituteType = InstituteType.OEHWAN;
+
+        given(guaranteeRepository.existsByInstitute(new Institute(instituteType))).willReturn(false);
+
+        // then
+        assertThrows(NoSuchDataException.class, () -> guaranteeService.findMinMaxAverageAmounts(instituteType.getName()));
+    }
+
+    @Test
+    void 특정_금융기관의_연도별_평균_최대최소값_출력_테스트() {
+        // given
+        double avg1 = 0;
+        Year year1 = Year.of(2010);
+        Institute institute1 = new Institute(InstituteType.OEHWAN);
+
+        double avg2 = 123;
+        Year year2 = Year.of(2011);
+        Institute institute2 = new Institute(InstituteType.OEHWAN);
+
+        double avg3 = 13;
+        Year year3 = Year.of(2012);
+        Institute institute3 = new Institute(InstituteType.OEHWAN);
+
+        double avg4 = 120;
+        Year year4 = Year.of(2013);
+        Institute institute4 = new Institute(InstituteType.KOOKMIN);
+
+        double avg5 = 25;
+        Year year5 = Year.of(2010);
+        Institute institute5 = new Institute(InstituteType.KOOKMIN);
+
+        double avg6 = 23;
+        Year year6 = Year.of(2011);
+        Institute institute6 = new Institute(InstituteType.KOOKMIN);
+
+        double avg7 = 18;
+        Year year7 = Year.of(2012);
+        Institute institute7 = new Institute(InstituteType.SHINHAN);
+
+        double avg8 = 32;
+        Year year8 = Year.of(2013);
+        Institute institute8 = new Institute(InstituteType.SHINHAN);
+
+        given(guaranteeRepository.existsByInstitute(institute1)).willReturn(true);
+        given(guaranteeRepository.findAverageAmountsPerYear()).willReturn(Arrays.asList(
+                new AverageAmountPerYearResult(avg1, year1, institute1),
+                new AverageAmountPerYearResult(avg2, year2, institute2),
+                new AverageAmountPerYearResult(avg3, year3, institute3),
+                new AverageAmountPerYearResult(avg4, year4, institute4),
+                new AverageAmountPerYearResult(avg5, year5, institute5),
+                new AverageAmountPerYearResult(avg6, year6, institute6),
+                new AverageAmountPerYearResult(avg7, year7, institute7),
+                new AverageAmountPerYearResult(avg8, year8, institute8)
+        ));
+
+        // when
+        AverageAmountPerYearResponseDto result = guaranteeService.findMinMaxAverageAmounts(institute1.getName());
+
+        // then
+        assertThat(result.getMinAmount())
+                .hasFieldOrPropertyWithValue("year", 2010)
+                .hasFieldOrPropertyWithValue("amount", 0.0);
+        assertThat(result.getMaxAmount())
+                .hasFieldOrPropertyWithValue("year", 2011)
+                .hasFieldOrPropertyWithValue("amount", 123.0);
+
     }
 
 }
