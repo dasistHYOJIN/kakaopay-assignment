@@ -113,7 +113,7 @@ public class GuaranteeService {
         List<AverageAmountPerYearResult> amountResults =
                 guaranteeRepository.findAverageAmountsPerYear().stream()
                         .filter(averageAmountPerYearResult -> averageAmountPerYearResult.getInstitute().getName().equals(instituteName))
-                        .sorted(Comparator.comparingDouble(AverageAmountPerYearResult::getAvg))
+                        .sorted(Comparator.comparingInt(AverageAmountPerYearResult::getAvg))
                         .collect(Collectors.toList());
 
         AverageAmountPerYearResult minResult = amountResults.get(0);

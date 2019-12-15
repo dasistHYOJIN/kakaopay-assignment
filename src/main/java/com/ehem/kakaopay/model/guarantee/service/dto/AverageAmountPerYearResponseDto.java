@@ -24,9 +24,9 @@ public class AverageAmountPerYearResponseDto {
     @EqualsAndHashCode
     public class YearValue {
         private Integer year;
-        private Double amount;
+        private Integer amount;
 
-        YearValue(final Integer year, final Double amount) {
+        YearValue(final Integer year, final Integer amount) {
             this.year = year;
             this.amount = amount;
         }
