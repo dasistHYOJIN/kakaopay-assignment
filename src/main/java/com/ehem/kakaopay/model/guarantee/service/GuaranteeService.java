@@ -5,10 +5,9 @@ import com.ehem.kakaopay.model.guarantee.domain.Guarantee;
 import com.ehem.kakaopay.model.guarantee.domain.vo.Year;
 import com.ehem.kakaopay.model.guarantee.exception.NoSuchDataException;
 import com.ehem.kakaopay.model.guarantee.repository.GuaranteeRepository;
-import com.ehem.kakaopay.model.guarantee.service.dto.GuaranteeSavedResponseDto;
-import com.ehem.kakaopay.model.guarantee.service.dto.MaxTotalAmountInstitutePerYearResult;
-import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountAndInstitutePerYearResponseDto;
-import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountPerYearResult;
+import com.ehem.kakaopay.model.guarantee.service.dto.*;
+import com.ehem.kakaopay.model.institute.domain.Institute;
+import com.ehem.kakaopay.model.institute.domain.vo.InstituteType;
 import com.ehem.kakaopay.model.institute.service.InstituteService;
 import com.ehem.kakaopay.parser.GuaranteeParser;
 import com.ehem.kakaopay.parser.vo.Record;
@@ -88,10 +87,6 @@ public class GuaranteeService {
                 .collect(Collectors.toList());
     }
 
-    private TotalAmountAndInstitutePerYearResponseDto toTotalAmountAndInstitutePerYearResponseDto(final Map.Entry<Integer, Map<String, Long>> e) {
-        return new TotalAmountAndInstitutePerYearResponseDto(e.getKey(), getTotalAmount(e), e.getValue());
-    }
-
     private Map<Integer, Map<String, Long>> groupByYear(final List<TotalAmountPerYearResult> results) {
         return results.stream()
                 .collect(Collectors.groupingBy(TotalAmountPerYearResult::getYear))
@@ -108,6 +103,31 @@ public class GuaranteeService {
     private Map<String, Long> sumUpAmounts(List<TotalAmountPerYearResult> ent) {
         return ent.stream()
                 .collect(Collectors.toMap(t -> t.getInstitute().getName(), TotalAmountPerYearResult::getSum));
+    }
+
+    public AverageAmountPerYearResponseDto findMinMaxAverageAmounts(final String instituteName) {
+        if (doesNotExistsByInstitute(instituteName)) {
+            throw new NoSuchDataException(String.format("%s은 존재하지 않는 금융기관입니다.", instituteName));
+        }
+
+        List<AverageAmountPerYearResult> amountResults =
+                guaranteeRepository.findAverageAmountsPerYear().stream()
+                        .filter(averageAmountPerYearResult -> averageAmountPerYearResult.getInstitute().getName().equals(instituteName))
+                        .sorted(Comparator.comparingDouble(AverageAmountPerYearResult::getAvg))
+                        .collect(Collectors.toList());
+
+        AverageAmountPerYearResult minResult = amountResults.get(0);
+        AverageAmountPerYearResult maxResult = amountResults.get(amountResults.size() - 1);
+
+        return new AverageAmountPerYearResponseDto(instituteName, minResult, maxResult);
+    }
+
+    private boolean doesNotExistsByInstitute(final String instituteName) {
+        return !guaranteeRepository.existsByInstitute(new Institute(InstituteType.ofName(instituteName)));
+    }
+
+    private TotalAmountAndInstitutePerYearResponseDto toTotalAmountAndInstitutePerYearResponseDto(final Map.Entry<Integer, Map<String, Long>> e) {
+        return new TotalAmountAndInstitutePerYearResponseDto(e.getKey(), getTotalAmount(e), e.getValue());
     }
 
     private GuaranteeSavedResponseDto toSavedResponseDto(final Guarantee guarantee) {

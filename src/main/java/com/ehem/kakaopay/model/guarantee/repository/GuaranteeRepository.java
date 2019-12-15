@@ -4,6 +4,7 @@ import com.ehem.kakaopay.model.guarantee.domain.Guarantee;
 import com.ehem.kakaopay.model.guarantee.domain.vo.Year;
 import com.ehem.kakaopay.model.guarantee.service.dto.AverageAmountPerYearResult;
 import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountPerYearResult;
+import com.ehem.kakaopay.model.institute.domain.Institute;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -11,6 +12,8 @@ import java.util.List;
 
 public interface GuaranteeRepository extends JpaRepository<Guarantee, Long> {
     int countByYear(final Year year);
+
+    boolean existsByInstitute(final Institute institute);
 
     /**
      * 년도별 각 금융기관의 지원금액 합계
@@ -48,4 +51,5 @@ public interface GuaranteeRepository extends JpaRepository<Guarantee, Long> {
             "FROM Guarantee g " +
             "GROUP BY g.institute, g.year")
     List<AverageAmountPerYearResult> findAverageAmountsPerYear();
+
 }
