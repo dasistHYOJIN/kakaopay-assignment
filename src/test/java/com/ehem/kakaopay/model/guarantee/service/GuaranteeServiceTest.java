@@ -182,10 +182,10 @@ class GuaranteeServiceTest {
         // then
         assertThat(result.getMinAmount())
                 .hasFieldOrPropertyWithValue("year", 2010)
-                .hasFieldOrPropertyWithValue("amount", 0.0);
+                .hasFieldOrPropertyWithValue("amount", 0);
         assertThat(result.getMaxAmount())
                 .hasFieldOrPropertyWithValue("year", 2011)
-                .hasFieldOrPropertyWithValue("amount", 123.0);
+                .hasFieldOrPropertyWithValue("amount", 123);
 
     }
 
