@@ -50,7 +50,7 @@ public class GuaranteeService {
     }
 
     public List<MaxTotalAmountInstitutePerYearResult> findInstituteNamesByMaxTotalAmountPerYear() {
-        return guaranteeRepository.findAllInstitutesByYearAndMaxTotalAmount().stream()
+        return guaranteeRepository.findAllInstituteNamesByYearAndMaxTotalAmount().stream()
                 .map(MaxTotalAmountInstitutePerYearResult::new)
                 .collect(Collectors.toList());
     }
@@ -60,7 +60,7 @@ public class GuaranteeService {
             throw new NoSuchDataException(String.format("%d년에 해당하는 데이터가 존재하지 않습니다.", year));
         }
 
-        Object[] result = guaranteeRepository.findInstituteByYearAndMaxTotalAmount(year).get(0);
+        Object[] result = guaranteeRepository.findInstituteNameByYearAndMaxTotalAmount(year).get(0);
         return new MaxTotalAmountInstitutePerYearResult(result);
     }
 

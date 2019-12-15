@@ -46,7 +46,7 @@ class GuaranteeServiceTest {
         Object[] data2 = {year2, maxAmount2, instituteName2};
         List<Object[]> data = Arrays.asList(data1, data2);
 
-        given(guaranteeRepository.findAllInstitutesByYearAndMaxTotalAmount()).willReturn(data);
+        given(guaranteeRepository.findAllInstituteNamesByYearAndMaxTotalAmount()).willReturn(data);
 
         // when
         List<MaxTotalAmountInstitutePerYearResult> results = guaranteeService.findInstituteNamesByMaxTotalAmountPerYear();
@@ -67,7 +67,7 @@ class GuaranteeServiceTest {
         Object[] objects = {year, maxAmount, instituteName};
 
         given(guaranteeRepository.countByYear(Year.of(year))).willReturn(1);
-        given(guaranteeRepository.findInstituteByYearAndMaxTotalAmount(year))
+        given(guaranteeRepository.findInstituteNameByYearAndMaxTotalAmount(year))
                 .willReturn(new ArrayList<>(Collections.singleton(objects)));
 
         // when
