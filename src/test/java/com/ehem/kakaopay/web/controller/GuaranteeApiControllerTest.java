@@ -1,7 +1,6 @@
 package com.ehem.kakaopay.web.controller;
 
 import com.ehem.kakaopay.web.message.ApiResponse;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
@@ -12,13 +11,6 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class GuaranteeApiControllerTest extends RestTemplate {
-
-    private static int testCount = 0;
-
-    @BeforeEach
-    void setUp() {
-        testCount++;
-    }
 
     @Test
     void saveDataFile() throws IOException {
