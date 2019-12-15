@@ -9,9 +9,9 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-@Entity
 @EqualsAndHashCode(of = "id")
 public class Guarantee {
 
@@ -33,6 +33,7 @@ public class Guarantee {
     private Amount amount;
 
     @ManyToOne//(fetch = FetchType.LAZY)
+    @JoinColumn(name = "instituteName")
     private Institute institute;
 
     @Builder
