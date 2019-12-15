@@ -35,6 +35,8 @@ Preferences > Build, Execution, Deployment > Compiler > Annotation Processors
 
 Enable annotation processing에 체크합니다.
 
+---
+
 ## 3. 해결 방법
 ### CSV 파일의 데이터를 정형화하는 파서 구현
 저는 데이터를 읽고 정형화하는 과정까지 이 과제의 요구사항이라고 판단했기 때문에 CSV 라이브러리를 사용하지 않고 직접 Parser를 구현하였습니다.
