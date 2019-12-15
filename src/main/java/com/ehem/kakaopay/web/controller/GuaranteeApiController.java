@@ -3,6 +3,7 @@ package com.ehem.kakaopay.web.controller;
 import com.ehem.kakaopay.model.guarantee.service.GuaranteeService;
 import com.ehem.kakaopay.model.guarantee.service.dto.GuaranteeSavedResponseDto;
 import com.ehem.kakaopay.model.guarantee.service.dto.MaxTotalAmountInstitutePerYearResult;
+import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountAndInstitutePerYearResponseDto;
 import com.ehem.kakaopay.web.message.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -47,5 +48,16 @@ public class GuaranteeApiController {
         log.info("getInstituteNameByMaxTotalAmountPerYear() >> {}", result);
 
         return ResponseEntity.ok(new ApiResponse(HttpStatus.OK, String.format("%d년 가장 높은 금액을 지원한 금융기관 데이터", year), result));
+    }
+
+    // 년도별 각 금융기관의 지원금액 합계
+
+    @GetMapping("/sum")
+    public ResponseEntity<ApiResponse> getTotalAmountPerYear() {
+        List<TotalAmountAndInstitutePerYearResponseDto> results = guaranteeService.findTotalAmountPerYear();
+
+        log.info("getInstituteNameByMaxTotalAmountPerYear() >> {}", results);
+
+        return ResponseEntity.ok(new ApiResponse(HttpStatus.OK, "주택 금융 공급 현황 데이터", results));
     }
 }

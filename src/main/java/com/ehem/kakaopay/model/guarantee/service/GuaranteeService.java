@@ -7,6 +7,8 @@ import com.ehem.kakaopay.model.guarantee.exception.NoSuchDataException;
 import com.ehem.kakaopay.model.guarantee.repository.GuaranteeRepository;
 import com.ehem.kakaopay.model.guarantee.service.dto.GuaranteeSavedResponseDto;
 import com.ehem.kakaopay.model.guarantee.service.dto.MaxTotalAmountInstitutePerYearResult;
+import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountAndInstitutePerYearResponseDto;
+import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountPerYearResult;
 import com.ehem.kakaopay.model.institute.service.InstituteService;
 import com.ehem.kakaopay.parser.GuaranteeParser;
 import com.ehem.kakaopay.parser.vo.Record;
@@ -15,7 +17,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -66,6 +70,31 @@ public class GuaranteeService {
 
     private boolean hasNoData(final int count) {
         return count == 0;
+    }
+
+    public List<TotalAmountAndInstitutePerYearResponseDto> findTotalAmountPerYear() {
+        List<TotalAmountPerYearResult> results = guaranteeRepository.findTotalAmountGroupByInstituteNameAndYear();
+
+        return results.stream()
+                .collect(Collectors.groupingBy(TotalAmountPerYearResult::getYear))
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(entry -> entry.getKey().getValue(), entry -> sumUpAmounts(entry.getValue())))
+                .entrySet()
+                .stream()
+                .sorted(Comparator.comparingInt(Map.Entry::getKey))
+                .map(e -> new TotalAmountAndInstitutePerYearResponseDto(e.getKey(), getTotalAmount(e), e.getValue()))
+                .collect(Collectors.toList());
+    }
+
+    private Long getTotalAmount(final Map.Entry<Integer, Map<String, Long>> e) {
+        return e.getValue().values().stream()
+                .reduce(Long::sum).orElse(0L);
+    }
+
+    private Map<String, Long> sumUpAmounts(List<TotalAmountPerYearResult> ent) {
+        return ent.stream()
+                .collect(Collectors.toMap(t -> t.getInstitute().getName(), TotalAmountPerYearResult::getSum));
     }
 
     private GuaranteeSavedResponseDto toSavedResponseDto(final Guarantee guarantee) {
