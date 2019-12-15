@@ -1,6 +1,7 @@
 package com.ehem.kakaopay.model.guarantee.service.dto;
 
 import lombok.AccessLevel;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -8,6 +9,7 @@ import java.util.Map;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode
 public class TotalAmountAndInstitutePerYearResponseDto {
     private String year;
     private Long totalAmount;

@@ -1,5 +1,6 @@
 package com.ehem.kakaopay.web.controller;
 
+import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountAndInstitutePerYearResponseDto;
 import com.ehem.kakaopay.web.message.ApiResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -83,5 +84,24 @@ class GuaranteeApiControllerTest extends RestTemplate {
                 .hasFieldOrPropertyWithValue("httpStatus", HttpStatus.UNAUTHORIZED)
                 .hasFieldOrPropertyWithValue("msg", "2090년에 해당하는 데이터가 존재하지 않습니다.")
                 .hasFieldOrPropertyWithValue("data", null);
+    }
+
+    @Test
+    void 년도별_각_금융기관의_지원금액_합계() throws IOException {
+        // given
+        saveGuaranteeDataFile();
+
+        // when
+        ApiResponse response = webTestClient.get()
+                .uri(GUARANTEE_API + "/sum")
+                .exchange()
+                .expectBody(ApiResponse.class)
+                .returnResult()
+                .getResponseBody();
+
+        // then
+        assertThat(response)
+                .hasFieldOrPropertyWithValue("httpStatus", HttpStatus.OK)
+                .hasFieldOrPropertyWithValue("msg", "주택 금융 공급 현황 데이터");
     }
 }

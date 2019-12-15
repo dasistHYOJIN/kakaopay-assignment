@@ -4,6 +4,9 @@ import com.ehem.kakaopay.model.guarantee.domain.vo.Year;
 import com.ehem.kakaopay.model.guarantee.exception.NoSuchDataException;
 import com.ehem.kakaopay.model.guarantee.repository.GuaranteeRepository;
 import com.ehem.kakaopay.model.guarantee.service.dto.MaxTotalAmountInstitutePerYearResult;
+import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountAndInstitutePerYearResponseDto;
+import com.ehem.kakaopay.model.guarantee.service.dto.TotalAmountPerYearResult;
+import com.ehem.kakaopay.model.institute.domain.Institute;
 import com.ehem.kakaopay.model.institute.domain.vo.InstituteType;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -88,6 +91,33 @@ class GuaranteeServiceTest {
 
         // then
         assertThrows(NoSuchDataException.class, () -> guaranteeService.findInstituteNameByMaxTotalAmountPerYear(noDataYear));
+    }
+
+    @Test
+    void 연도별_각_금융기관의_지원금액_합계_출력_테스트() {
+        // given
+        int year1 = 2020;
+        long sumAmount1 = 12345L;
+        String instituteName1 = InstituteType.JOOTAEK.name();
+
+        int year2 = 2021;
+        long sumAmount2 = 145L;
+        String instituteName2 = InstituteType.WOORI.name();
+
+        given(guaranteeRepository.findTotalAmountGroupByInstituteNameAndYear())
+                .willReturn(Arrays.asList(
+                        new TotalAmountPerYearResult(Year.of(year1), new Institute(InstituteType.ofName(instituteName1)), sumAmount1),
+                        new TotalAmountPerYearResult(Year.of(year2), new Institute(InstituteType.ofName(instituteName2)), sumAmount2)
+                ));
+
+        // when
+        List<TotalAmountAndInstitutePerYearResponseDto> results = guaranteeService.findTotalAmountPerYear();
+
+        // then
+        assertThat(results).hasSize(2);
+        assertThat(results.get(0))
+                .hasFieldOrPropertyWithValue("year", year1 + "년")
+                .hasFieldOrPropertyWithValue("totalAmount", sumAmount1);
     }
 
 }

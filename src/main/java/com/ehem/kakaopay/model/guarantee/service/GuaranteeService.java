@@ -75,16 +75,29 @@ public class GuaranteeService {
     public List<TotalAmountAndInstitutePerYearResponseDto> findTotalAmountPerYear() {
         List<TotalAmountPerYearResult> results = guaranteeRepository.findTotalAmountGroupByInstituteNameAndYear();
 
+        Map<Integer, Map<String, Long>> groupedByYearResults = groupByYear(results);
+
+        return mapToTotalAmountAndInstitutePerYearResponseDto(groupedByYearResults);
+    }
+
+    private List<TotalAmountAndInstitutePerYearResponseDto> mapToTotalAmountAndInstitutePerYearResponseDto(final Map<Integer, Map<String, Long>> collect) {
+        return collect.entrySet()
+                .stream()
+                .sorted(Comparator.comparingInt(Map.Entry::getKey))
+                .map(this::toTotalAmountAndInstitutePerYearResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    private TotalAmountAndInstitutePerYearResponseDto toTotalAmountAndInstitutePerYearResponseDto(final Map.Entry<Integer, Map<String, Long>> e) {
+        return new TotalAmountAndInstitutePerYearResponseDto(e.getKey(), getTotalAmount(e), e.getValue());
+    }
+
+    private Map<Integer, Map<String, Long>> groupByYear(final List<TotalAmountPerYearResult> results) {
         return results.stream()
                 .collect(Collectors.groupingBy(TotalAmountPerYearResult::getYear))
                 .entrySet()
                 .stream()
-                .collect(Collectors.toMap(entry -> entry.getKey().getValue(), entry -> sumUpAmounts(entry.getValue())))
-                .entrySet()
-                .stream()
-                .sorted(Comparator.comparingInt(Map.Entry::getKey))
-                .map(e -> new TotalAmountAndInstitutePerYearResponseDto(e.getKey(), getTotalAmount(e), e.getValue()))
-                .collect(Collectors.toList());
+                .collect(Collectors.toMap(entry -> entry.getKey().getValue(), entry -> sumUpAmounts(entry.getValue())));
     }
 
     private Long getTotalAmount(final Map.Entry<Integer, Map<String, Long>> e) {
