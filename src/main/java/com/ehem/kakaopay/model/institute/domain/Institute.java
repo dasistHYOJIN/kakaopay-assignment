@@ -16,7 +16,7 @@ public class Institute {
 
     @Id
     @Enumerated(EnumType.STRING)
-    @Column(name = "institute", nullable = false)
+    @Column(name = "name", nullable = false)
     private InstituteType instituteType;
 
     public Institute(final InstituteType instituteType) {

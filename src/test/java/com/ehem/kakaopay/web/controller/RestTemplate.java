@@ -20,10 +20,14 @@ import static org.springframework.http.MediaType.MULTIPART_FORM_DATA;
 public class RestTemplate {
     static final String GUARANTEE_API = linkTo(GuaranteeApiController.class).toString();
 
+    static int testCount = 0;
+
     @Autowired
     WebTestClient webTestClient;
 
     ResponseSpec saveGuaranteeDataFile() throws IOException {
+        testCount++;
+
         ClassPathResource classPathResource = new ClassPathResource("test.csv");
         File file = classPathResource.getFile();
 
